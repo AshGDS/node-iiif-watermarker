@@ -21,4 +21,4 @@ If you need to easily setup a working IIIF server with images, use the [image vi
 
 Using TIFY, a 6477 x 9727 Map with a 6.1MB file size loaded in 10 seconds without the watermark, and 12.5 seconds with the watermark.
 
-There is currently no caching enabled on this proxy server, so the image needs to be downloaded from the original server and the watermark needs to be applied every time the user reloads the page.
+There is currently caching enabled on this proxy server, set to 60 minutes.

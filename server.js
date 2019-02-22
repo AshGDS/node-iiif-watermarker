@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const request = require('request').defaults({encoding: null});
 const sharp = require('sharp');
+const apicache = require('apicache');
 
 // This will set the URL of your IIIF server to http://localhost:8182/iiif/2/
 const IMAGE_API_SERVER = 'http://localhost';
@@ -10,6 +11,8 @@ const IMAGE_API_PREFIX = 'iiif/2';
 
 const WATERMARKER_PORT = 4343; // Port for this server
 
+let cache = apicache.middleware
+
 let download = function (uri, callback) {
 
     request.get(uri, function (err, res, body) {
@@ -17,6 +20,7 @@ let download = function (uri, callback) {
     });
 };
 
+app.use(cache('60 minutes'));
 app.use(function (req, res, next) {
 
     // Disable CORS
