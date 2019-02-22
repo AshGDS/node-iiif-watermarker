@@ -41,7 +41,7 @@ app.get(`/${IMAGE_API_PREFIX}/:identifier/:region/:size/:rotation/:quality`, (re
         let options = {tile: true};
 
         sharp(rawImage)
-            .overlayWith('tna-watermark.png', options)
+            .overlayWith('watermark.png', options)
             .toBuffer()
             .then(watermarkedImage => {
                 res.send(watermarkedImage);
