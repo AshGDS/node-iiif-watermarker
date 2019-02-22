@@ -39,11 +39,11 @@ app.listen(WATERMARKER_PORT, (error) => {
     error ? console.log(error) : console.log('Watermark server running...');
 })
 
-app.get(`/${IMAGE_API_PREFIX}/:file/:coords/:size/:num/:type`, (req, res) => {
+app.get(`/${IMAGE_API_PREFIX}/:identifier/:region/:size/:rotation/:quality`, (req, res) => {
 
-    let {file, coords, size, num, type} = req.params;
+    let {identifier, region, size, rotation, quality} = req.params;
 
-    download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${file}/${coords}/${size}/${num}/${type}`, (rawImage) => {
+    download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${identifier}/${region}/${size}/${rotation}/${quality}`, (rawImage) => {
 
         let options = {tile: true};
 
@@ -54,28 +54,28 @@ app.get(`/${IMAGE_API_PREFIX}/:file/:coords/:size/:num/:type`, (req, res) => {
                 res.send(watermarkedImage);
             })
             .catch(err => {
+                console.log(err, ' attempting to show unwatermarked image for', identifier);
                 res.send(rawImage);
-                console.log(err, 'showing unwatermarked image for', file);
             })
     })
 
 });
 
-app.get(`/${IMAGE_API_PREFIX}/:file/info.json`, (req, res) => {
+app.get(`/${IMAGE_API_PREFIX}/:identifier/info.json`, (req, res) => {
 
-    let {file} = req.params;
-    sendIIIFjson(res, file);
+    let {identifier} = req.params;
+    sendIIIFjson(res, identifier);
 });
 
-app.get(`/${IMAGE_API_PREFIX}/:file`, (req, res) => {
+app.get(`/${IMAGE_API_PREFIX}/:identifier`, (req, res) => {
 
-    let {file} = req.params;
-    sendIIIFjson(res, file);
+    let {identifier} = req.params;
+    sendIIIFjson(res, identifier);
 });
 
-let sendIIIFjson = (res, file) => {
+let sendIIIFjson = (res, identifier) => {
 
-    download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${file}/info.json`, (json) => {
+    download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${identifier}/info.json`, (json) => {
         let encoded_json = JSON.parse(json);
 
         // Changes info.json to point to this servers mock IIIF Image server port
