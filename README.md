@@ -2,6 +2,8 @@
 
 Adds a watermark on top of a IIIF Image API server call via a node proxy server. This can be useful if you only want to display content depending on a certain condition, if you want to easily add your logo to raw images, or if you just want watermarking while preserving IIIF functionality. 
 
+![Example screenshot](screenshot.png)
+
 To run this server:
 
 1. Clone this repo to your machine.
