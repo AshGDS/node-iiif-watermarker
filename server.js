@@ -50,11 +50,12 @@ app.get(`/${IMAGE_API_PREFIX}/:file/:coords/:size/:num/:type`, (req, res) => {
         sharp(rawImage)
             .overlayWith('watermark.png', options)
             .toBuffer()
-            .then(data => {
-                res.send(data);
+            .then(watermarkedImage => {
+                res.send(watermarkedImage);
             })
             .catch(err => {
-                console.log(err);
+                res.send(rawImage);
+                console.log(err, 'showing unwatermarked image for', file);
             })
     })
 
@@ -63,16 +64,16 @@ app.get(`/${IMAGE_API_PREFIX}/:file/:coords/:size/:num/:type`, (req, res) => {
 app.get(`/${IMAGE_API_PREFIX}/:file/info.json`, (req, res) => {
 
     let {file} = req.params;
-    send_IIIF_json(res, file);
+    sendIIIFjson(res, file);
 });
 
 app.get(`/${IMAGE_API_PREFIX}/:file`, (req, res) => {
 
     let {file} = req.params;
-    send_IIIF_json(res, file);
+    sendIIIFjson(res, file);
 });
 
-let send_IIIF_json = (res, file) => {
+let sendIIIFjson = (res, file) => {
 
     download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${file}/info.json`, (json) => {
         let encoded_json = JSON.parse(json);
