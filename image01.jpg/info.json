@@ -1,6 +1,6 @@
 {
   "@context": "http://iiif.io/api/image/2/context.json",
-  "@id": "http://127.0.0.1:8182/iiif/2/image01.jpg",
+  "@id": "http://127.0.0.1:4343/iiif/2/image01.jpg",
   "protocol": "http://iiif.io/api/image",
   "width": 2272,
   "height": 3926,

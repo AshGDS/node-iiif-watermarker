@@ -54,6 +54,7 @@ app.get('/iiif/2/:file/:coords/:size/:num/:type', (req, res) => {
             .overlayWith('watermark.png', options)
             .toBuffer()
             .then(data => {
+                console.log('Watermark success');
                 res.send(data);
             })
             .catch(err => {
