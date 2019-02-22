@@ -47,7 +47,7 @@ app.get(`/${IMAGE_API_PREFIX}/:identifier/:region/:size/:rotation/:quality`, (re
                 res.send(watermarkedImage);
             })
             .catch(err => {
-                console.log(err, ' attempting to show unwatermarked image for', identifier);
+                console.log(err, 'attempting to show unwatermarked image for', identifier);
                 res.send(rawImage);
             })
     })
@@ -76,12 +76,12 @@ let download = function (uri, callback) {
 let sendIIIFjson = (res, identifier) => {
 
     download(`${IMAGE_API_SERVER}:${IMAGE_API_PORT}/${IMAGE_API_PREFIX}/${identifier}/info.json`, (json) => {
-        let encoded_json = JSON.parse(json);
+        let parsed_json = JSON.parse(json);
 
         // Changes info.json to point to this servers mock IIIF Image server port
-        encoded_json['@id'] = encoded_json['@id'].replace(`:${IMAGE_API_PORT}/`,`:${WATERMARKER_PORT}/`)
+        parsed_json['@id'] = parsed_json['@id'].replace(`:${IMAGE_API_PORT}/`,`:${WATERMARKER_PORT}/`)
 
-        res.send(encoded_json);
+        res.send(parsed_json);
     })
 }
 
