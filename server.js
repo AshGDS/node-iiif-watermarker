@@ -11,14 +11,7 @@ const IMAGE_API_PREFIX = 'iiif/2';
 
 const WATERMARKER_PORT = 4343; // Port for this server
 
-let cache = apicache.middleware
-
-let download = function (uri, callback) {
-
-    request.get(uri, function (err, res, body) {
-        callback(body);
-    });
-};
+let cache = apicache.middleware;
 
 app.use(cache('60 minutes'));
 app.use(function (req, res, next) {
@@ -48,7 +41,7 @@ app.get(`/${IMAGE_API_PREFIX}/:identifier/:region/:size/:rotation/:quality`, (re
         let options = {tile: true};
 
         sharp(rawImage)
-            .overlayWith('watermark.png', options)
+            .overlayWith('tna-watermark.png', options)
             .toBuffer()
             .then(watermarkedImage => {
                 res.send(watermarkedImage);
@@ -72,6 +65,13 @@ app.get(`/${IMAGE_API_PREFIX}/:identifier`, (req, res) => {
     let {identifier} = req.params;
     sendIIIFjson(res, identifier);
 });
+
+let download = function (uri, callback) {
+
+    request.get(uri, function (err, res, body) {
+        callback(body);
+    });
+};
 
 let sendIIIFjson = (res, identifier) => {
 
