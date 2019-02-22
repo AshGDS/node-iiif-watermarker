@@ -27,8 +27,7 @@ app.use(function (req, res, next) {
 
 app.get('/', (req, res) => {
 
-    res.send('Hello');
-    console.log('');
+    res.send('Welcome to the IIIF Watermark server');
 })
 
 app.listen(WATERMARKER_PORT, (error) => {
