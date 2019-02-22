@@ -15,4 +15,10 @@ This has been tested with TIFY, Mirador and Universal viewer.
 
 Modify the height/width of `watermark.png` or use the [sharp API](http://sharp.pixelplumbing.com/en/stable/api-composite/) to change how the watermark appears.
 
-If you need to easily setup a working IIIF server with images, use the [image viewer comparison](https://github.com/nationalarchives/image-viewer-comparison) repo from @nationalarchives
+If you need to easily setup a working IIIF server with images, use the [image viewer comparison](https://github.com/nationalarchives/image-viewer-comparison) repo from [@nationalarchives](http://github.com/nationalarchives)
+
+## Performance
+
+Using TIFY, a 6477 x 9727 Map with a 6.1MB file size loaded in 10 seconds without the watermark, and 10 seconds with the watermark.
+
+There is currently no caching enabled on this proxy server, so the image needs to be downloaded from the original server and the watermark needs to be applied eve**ry time the user reloads the page.
