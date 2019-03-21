@@ -29,3 +29,5 @@ If you need to easily setup a working IIIF server with images, use the [image vi
 
 - If you have large images, a watermarked thumbnail will not be generated as the thumbnail may be smaller 
 than the size of your watermark, which sharp does not allow. To solve this, I have set the server to just send an unwatermarked image if this happens.
+
+Credits for the smiley face used goes to [wikipedia](https://en.wikipedia.org/wiki/Smiley#/media/File:SNice.svg)
